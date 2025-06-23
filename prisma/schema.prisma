@@ -1,0 +1,9 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"  // MySQL 사용
+  url      = env("DATABASE_URL")  // .env에서 DB 연결 정보 불러옴
+}
