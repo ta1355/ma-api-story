@@ -1,24 +1,23 @@
 import { getOcidByCharacterName } from "@/lib/nexon/api";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const characterName = url.searchParams.get("character_name");
 
   if (!characterName) {
-    return new Response(JSON.stringify({ error: "캐릭터 이름 확인 바람" }), {
-      status: 400,
-    });
+    return NextResponse.json(
+      { error: "캐릭터 이름 확인 바람" },
+      { status: 400 }
+    );
   }
 
   try {
     const data = await getOcidByCharacterName(characterName);
-    return new Response(JSON.stringify(data), { status: 200 });
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("OCID 요청실패", error);
-    return new Response(JSON.stringify({ error: "API 요청실패" }), {
-      status: 500,
-    });
+    return NextResponse.json({ error: "API 요청실패" }, { status: 500 });
   }
 }
 

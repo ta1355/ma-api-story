@@ -2,7 +2,7 @@ import axios from "axios";
 import { CharacterBasicInfoDto } from "./dto/characterBasicInfo.dto";
 
 const nexonApi = axios.create({
-  baseURL: "https://open,api.nexon.com/maplestory/v1",
+  baseURL: "https://open.api.nexon.com/maplestory/v1",
   headers: {
     Accept: "application/json",
     "x-nxopen-api-key": process.env.NEXON_API_KEY, // api 키는 . env에서 불러옴
@@ -23,6 +23,6 @@ export async function getOcidByCharacterName(
 export async function getCharacterBasicInfo(
   ocid: string
 ): Promise<CharacterBasicInfoDto> {
-  const reponse = await nexonApi.get(`/character/basic?ocid=${ocid}`);
-  return reponse.data as CharacterBasicInfoDto;
+  const response = await nexonApi.get(`/character/basic?ocid=${ocid}`);
+  return response.data as CharacterBasicInfoDto;
 }
